@@ -1,0 +1,26 @@
+.search-input {
+  display: flex;
+  align-items: center;
+  color: #616161;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  padding: 0 10px;
+
+  &:focus-within {
+    border-color: #007bff;
+  }
+  .input {
+    width: 90%;
+    height: 100%;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+  }
+  .close-icon {
+    cursor: pointer;
+  }
+}
