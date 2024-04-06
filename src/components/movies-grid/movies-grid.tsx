@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaStar } from "react-icons/fa6";
 import { Movie } from "../../types";
 import { Loader } from "../loader";
 import "./movies-grid.scss";
@@ -19,7 +20,7 @@ export const MoviesGrid = ({ movies, isLoading }: MoviesGridProps) => {
       ) : (
         <>
           {!movies?.length && <p>No movies found...</p>}
-          {movies?.map((movie) => (
+          {movies?.slice(0, 10)?.map((movie) => (
             <MovieCard movie={movie} key={movie.id} />
           ))}
         </>
@@ -46,6 +47,10 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           <a>{movie.title}</a>
         </p>
         <p className="movie-release-date">{movie.release_date}</p>
+        <p className="movie-vote">
+          {parseFloat(`${movie.vote_average}`).toFixed(1)}
+          <FaStar />({movie.vote_count})
+        </p>
         <p className="movie-description" title={movie.overview}>
           {shortenText(movie.overview || "No description available")}
         </p>

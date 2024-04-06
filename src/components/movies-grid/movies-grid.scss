@@ -34,9 +34,17 @@
       }
     }
 
-    .movie-release-date {
+    .movie-release-date,
+    .movie-vote {
       font-size: 0.9rem;
       color: #888;
+    }
+
+    .movie-vote {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
     }
 
     .movie-description {
