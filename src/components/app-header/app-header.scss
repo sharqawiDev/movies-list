@@ -5,11 +5,13 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 10px;
 
   &__title {
+    min-width: fit-content;
     margin: 0;
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 25px;
     text-transform: uppercase;
     text-align: left;
     flex: 4;

@@ -1,4 +1,6 @@
 import { Input } from "../input";
+import { RiMovie2Fill } from "react-icons/ri";
+
 import "./app-header.scss";
 
 type Props = {
@@ -8,6 +10,7 @@ type Props = {
 export const AppHeader = ({ searchText, setSearchText }: Props) => {
   return (
     <div className="app-header">
+      <RiMovie2Fill size={40} />
       <h2 className="app-header__title">Movies App</h2>
       <Input
         type="text"
