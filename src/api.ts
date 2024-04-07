@@ -17,7 +17,6 @@ const SEARCH_MOVIE = "search/movie";
 // HOOKS
 export const useHomeScreenMovies = (searchText?: string) => {
   const random = useRandomNumber(1, 500);
-  console.log(random);
   const queryString = searchText?.length
     ? `${SEARCH_MOVIE}?query=${searchText}`
     : `${HOME_MOVIES}?page=${random}`;
@@ -25,5 +24,6 @@ export const useHomeScreenMovies = (searchText?: string) => {
     queryKey: ["home-screen-movies", searchText],
     queryFn: async ({ signal }) =>
       (await API.get<MoviesRes>(queryString, { signal })).data,
+    refetchOnMount: false,
   });
 };

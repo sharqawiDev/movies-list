@@ -4,23 +4,24 @@ import { Movie } from "../../types";
 import { Loader } from "../loader";
 import "./movies-grid.scss";
 import { shortenText } from "../../utils";
+import { useHomeScreenMovies } from "../../api";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-type MoviesGridProps = {
-  movies: Movie[] | undefined;
-  isLoading: boolean;
-};
 type MovieCardProps = {
   movie: Movie;
 };
-export const MoviesGrid = ({ movies, isLoading }: MoviesGridProps) => {
+export const MoviesGrid = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [params, _] = useSearchParams();
+  const { data, isLoading } = useHomeScreenMovies(params.get("query") || "");
   return (
     <div className="movies-grid">
       {isLoading ? (
         <Loader />
       ) : (
         <>
-          {!movies?.length && <p>No movies found...</p>}
-          {movies?.slice(0, 10)?.map((movie) => (
+          {!data?.results?.length && <p>No movies found...</p>}
+          {data?.results?.slice(0, 10)?.map((movie) => (
             <MovieCard movie={movie} key={movie.id} />
           ))}
         </>
@@ -34,6 +35,8 @@ const MovieCard = ({ movie }: MovieCardProps) => {
   const posterPath = movie?.poster_path
     ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
     : "https://placehold.co/600x900?text=No+Photo";
+  const navigate = useNavigate();
+  const goToMovieDetails = () => navigate(`/movies/${movie.id}`);
   return (
     <div className="movie-card">
       {!imageLoaded && <Loader />}
@@ -41,10 +44,11 @@ const MovieCard = ({ movie }: MovieCardProps) => {
         src={posterPath}
         onLoad={() => setImageLoaded(true)}
         loading="lazy"
+        onClick={goToMovieDetails}
       />
       <div className="movie-card__details">
         <p className="movie-title">
-          <a>{movie.title}</a>
+          <a onClick={goToMovieDetails}>{movie.title}</a>
         </p>
         <p className="movie-release-date">{movie.release_date}</p>
         <p className="movie-vote">
